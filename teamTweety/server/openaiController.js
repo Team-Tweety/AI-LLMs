@@ -7,7 +7,6 @@ console.log('OPENAI_API_KEY:', process.env.OPENAI_API_KEY);
 //initialize openAI client
 const openai = new OpenAI({
   apiKey:
-    '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',
 });
 
 const queryOpenAIChat = async (req, res, next) => {
