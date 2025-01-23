@@ -19,9 +19,25 @@ app.get('/', (req, res) => {
 // });
 
 app.post('/api', queryOpenAIChat, (req, res) => {
-  // Send the response after queryOpenAIChat middleware is done
-  res.status(200).json({ generatedScript: res.locals.generatedScript });
+  try {
+    if (!res.locals.generatedScript) {
+      return res.status(500).json({ error: 'No generated script available' });
+    }
+    res.status(200).json({ generatedScript: res.locals.generatedScript });
+  } catch (error) {
+    console.error('Error in final handler:', error);
+    res.status(500).json({ error: 'Server error' });
+  }
 });
+
+// Add a global error handler
+app.use((err, req, res, next) => {
+  console.error('Global error:', err);
+  res.status(err.status || 500).json({
+    error: err.message || 'Internal Server Error'
+  });
+});
+
 // Start the server
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);

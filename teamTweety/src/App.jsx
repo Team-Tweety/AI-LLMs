@@ -19,13 +19,20 @@ function App() {
         body: JSON.stringify({ userQuery }),
       });
 
-      console.log('Sending userQuery:', userQuery);
-
-      const data = await response.json();
-      setResponse(data.generatedScript);
-      //setResponse(data.respons);
+      console.log('Response status:', response.status);
+      const text = await response.text();  // Get the raw response text
+      console.log('Raw response:', text);
+      
+      try {
+        const data = JSON.parse(text);  // Try to parse it as JSON
+        setResponse(data.generatedScript);
+      } catch (e) {
+        console.error('Failed to parse JSON:', e);
+        setResponse('Error: Failed to get proper response from server');
+      }
     } catch (error) {
       console.error('Error submitting form:', error);
+      setResponse('Error: Failed to connect to server');
     }
   };
 
@@ -58,3 +65,6 @@ function App() {
 }
 
 export default App;
+
+
+
