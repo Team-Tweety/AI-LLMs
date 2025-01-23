@@ -5,9 +5,7 @@ dotenv.config({ path: '' });
 console.log('OPENAI_API_KEY:', process.env.OPENAI_API_KEY);
 
 //initialize openAI client
-const openai = new OpenAI({
-  apiKey:
-});
+const openai = new OpenAI({});
 
 const queryOpenAIChat = async (req, res, next) => {
   // const { userQuery } = res.locals;
