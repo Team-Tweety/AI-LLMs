@@ -1,13 +1,21 @@
-import dotenv from 'dotenv';
 import OpenAI from 'openai';
+import dotenv from 'dotenv';
+
+dotenv.config({ path: '' });
+console.log('OPENAI_API_KEY:', process.env.OPENAI_API_KEY);
 
 //initialize openAI client
 const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
+  apiKey:
+    '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',
 });
 
 const queryOpenAIChat = async (req, res, next) => {
-  const { userQuery } = res.locals;
+  // const { userQuery } = res.locals;
+  const { userQuery } = req.body;
+  console.log('Received body:', JSON.stringify(req.body, null, 2));
+  // console.log(userQuery);
+
   //data validation - is this being passed to AI
   if (!userQuery) {
     const error = {
@@ -20,7 +28,8 @@ const queryOpenAIChat = async (req, res, next) => {
   try {
     const prompt = 'Placeholder for prompt';
 
-    const response = await openai.chat.completions.create({
+    // const response =
+    await openai.chat.completions.create({
       model: 'gpt-4o',
       messages: [
         {
@@ -60,6 +69,7 @@ const queryOpenAIChat = async (req, res, next) => {
     }
 
     res.locals.generatedScript = script;
+    // res.status(200).json({ generatedScript: script });
     return next();
   } catch (err) {
     const error = {
@@ -70,3 +80,5 @@ const queryOpenAIChat = async (req, res, next) => {
     return next(error);
   }
 };
+
+export default queryOpenAIChat;
