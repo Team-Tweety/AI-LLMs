@@ -1,6 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
 import './App.css';
+import ReactMarkdown from 'react-markdown';
 
 function App() {
   const [response, setResponse] = useState(
@@ -20,11 +21,11 @@ function App() {
       });
 
       console.log('Response status:', response.status);
-      const text = await response.text();  // Get the raw response text
+      const text = await response.text(); // Get the raw response text
       console.log('Raw response:', text);
-      
+
       try {
-        const data = JSON.parse(text);  // Try to parse it as JSON
+        const data = JSON.parse(text); // Try to parse it as JSON
         setResponse(data.generatedScript);
       } catch (e) {
         console.error('Failed to parse JSON:', e);
@@ -56,7 +57,8 @@ function App() {
 
         <div className='response-container'>
           <div className='response-text'>
-            <p>{response}</p>
+            <ReactMarkdown>{response}</ReactMarkdown>
+            {/* <p>{response}</p> */}
           </div>
         </div>
       </div>
@@ -65,6 +67,3 @@ function App() {
 }
 
 export default App;
-
-
-

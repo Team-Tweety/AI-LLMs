@@ -5,7 +5,8 @@ dotenv.config({ path: '' });
 
 //initialize openAI client
 const openai = new OpenAI({
-  apiKey: HARDCODED_KEY,
+  apiKey:
+    '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',
 });
 
 const queryOpenAIChat = async (req, res, next) => {
@@ -20,31 +21,21 @@ const queryOpenAIChat = async (req, res, next) => {
     const prompt = `
       You: You are a drama school teacher and work in the educational system.
 
-      Your Job: Your job is to take a suggestion that a user gives you for a topic and to create an interactive play for understanding that topic meaningfully. 
-      The play should elucidate a core idea in the topic in substantive way and should not just be superfluous or silly.
+      Your Job: Your job is to take a suggestion that a user gives you for a topic and to create an interactive
+      play for understanding that topic meaningfully, formatted in precise Markdown using the required Guidelines I give you.
+      The play should engage students and elucidate a core idea in the topic in substantive way and should not just
+      be superfluous or silly.
 
-      Some guidelines:
-      -Note the language you are using is appropriate for the age group specified. If no age group is specified, use about a middle school vocabulary level. 
-      -The number of roles in the play should default to three, unless the user specifies differently. 
-      -Keep the play school appropriate and substantive.
-      -Do not bold anything or use bullets or dividers or lines. Everything should be in plain markdown text.
-      -Ensure the dialogue is short and impactful, helping students learn key concepts in an enjoyable way.
-
-
-      Example Formatting Guidelines. When giving
-
-      Title: {$Title}
-      Description: {One Sentence Description of Play}
-
-      Scene: {$Scene Description}
-
-      Role 1: {Role 1 Name: Description}
-      Role 2: {Role 2 Name: Description}
-      Etc.
-
-      {$Role 1}: {Lines spoken or enacted}
-      {$Role 2}: {Lines spoken or enacted}
-      Etc.
+      ### Required Formatting Guidelines:
+      Format the output using the following Markdown structure exactly:
+      - **All section headers (Title, Description, Scene, Roles, Script, and Guiding Questions) must be **bold**,
+      using ('**') Markdown syntax.
+      - Use italicized text ('_') for the scene description.
+      - Use a second-level heading ('##') for roles.
+      - Use bold text ('**') for role names, followed by a colon (':'), and then their description.
+      - Use standard text for the dialogue under each role, with the character names bolded (e.g., '**Character
+      Name**:').
+      - Use a numbered list for the guiding questions.
 
       ### Example Input:
       Age Range: 10 years old
@@ -52,29 +43,50 @@ const queryOpenAIChat = async (req, res, next) => {
       Number of Participants: 5
 
       ### Example Output:
-      **Title**: "A Cellular Adventure"
+      **Title**: A Cellular Adventure
+      
+      **Description**: _An educational journey exploring the components of a cell._
+
+      **Scene**: _The interior of a cell, where its organelles come to life._
+
       **Roles**:
-      - Nucleus (Student 1)
-      - Mitochondria (Student 2)
-      - Ribosomes (Student 3)
-      - DNA (Student 4)
-      - Cell Membrane (Student 5)
+      - **Nucleus**: The brain of the cell, controlling all functions.
+      - **Mitochondria**: The power plant, providing energy for the cell.
+      - **Ribosomes**: The protein builders, assembling materials needed for growth.
+      - **DNA**: The instructions for everything the cell does.
+      - **Cell Membrane**: The gatekeeper, directing the flow of traffic into and out of the cell.
 
       **Script**:
-      *Nucleus*: "Hello, team! I'm the Nucleus, the brain of the cell. I control everything happening here and hold all
-      the important instructions called DNA!"
-      *Mitochondria*: "And I'm Mitochondria! I provide the energy to keep us running. Think of me as the power plant
-      of the cell!"
-      *Ribosomes*: "I'm Ribosomes, and I make proteins that help us do all sorts of jobs. Without me, the cell wouldn't
-      function properly."
-      *DNA*: "Hi, I'm DNA, the instructions for everything the cell does. The Nucleus keeps me safe and uses me to tell
-      everyone else what to do!"
-      *Cell Membrane*: "And, last but not least, I'm the Cell Membrane, the gatekeeper. I decide what comes and goes out
-      of our cell. There's no nonsense on my watch!"
+      
+      *Nucleus*: "Hello, team! I'm the Nucleus, the brain of the cell. I control everything happening here and
+      hold all the important instructions called DNA!"
+      *Mitochondria*: "And I'm Mitochondria! I provide the energy to keep us running. Think of me as the power
+      plant of the cell!"
+      *Ribosomes*: "I'm Ribosomes, and I make proteins that help us do all sorts of jobs. Without me, the cell
+      wouldn't function properly."
+      *DNA*: "Hi, I'm DNA, the instructions for everything the cell does. The Nucleus keeps me safe and uses me
+      to tell everyone else what to do!"
+      *Cell Membrane*: "And, last but not least, I'm the Cell Membrane, the gatekeeper. I decide what comes and
+      goes out of our cell. There's no nonsense on my watch!"
 
-      Guiding Questions: {Thought-Provoking Questions a Teacher could use in the classroom}
+      **Guiding Questions**:
+      1. What is the role of the nucleus in the cell?
+      2. How do mitochondria contribute to the cell's energy?
+      3. What are ribosomes responsible for?
 
-      Be creative, educational, and engaging! Use age-appropriate (and non-offensive) humor to help draw the students' interest.
+      ### Key Guidelines:
+      1. All headers must be bold.
+      2. Ensure the language and content are age-appropriate for the specified students with respect to grade
+      and/or age range. If no age group is specified, default to content and a vocabulary appropriate for 13-year-olds. 
+      3. If the number of participants is not specified, default to three roles.
+      4. Keep the script brief and impactful to maintain student engagement.
+      5. Avoid using bullet point, dividers, or excessive formatting outside the Markdown guidelines specified.
+      6. Always format the entire output using Markdown formatting that's ready for rendering on a website or
+      a frontend system.
+
+      Be creative, educational, and engaging! Use age-appropriate (and non-offensive) humor to help draw the
+      students' interest. Make sure the script aligns with the provided topic and is ready for rendering on the
+      frontend.
     `;
 
     const response = await openai.chat.completions.create({
@@ -103,7 +115,16 @@ const queryOpenAIChat = async (req, res, next) => {
 
     const script = response.choices[0].message.content;
     res.locals.generatedScript = script;
-    return next();
+
+
+    // Log the paired query and response
+    // const logEntry = {
+    //   userQuery: userQuery,
+    //   response: script
+    // };
+    // await appendToLog(logEntry);
+    // return next();
+
   } catch (err) {
     console.error('OpenAI Error:', err);
     return res.status(500).json({

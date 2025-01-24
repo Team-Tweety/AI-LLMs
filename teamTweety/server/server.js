@@ -31,10 +31,10 @@ app.post('/api', queryOpenAIChat, (req, res) => {
 });
 
 // Add a global error handler
-app.use((err, req, res, next) => {
+app.use((err, req, res) => {
   console.error('Global error:', err);
   res.status(err.status || 500).json({
-    error: err.message || 'Internal Server Error'
+    error: err.message || 'Internal Server Error',
   });
 });
 
@@ -42,7 +42,3 @@ app.use((err, req, res, next) => {
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });
-
-// app.post('/api', queryOpenAIChat, (req, res) => {
-//   res.status(200).json({ res.locals.generatedScript });
-// });
