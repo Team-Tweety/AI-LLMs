@@ -4,10 +4,7 @@ import dotenv from 'dotenv';
 dotenv.config({ path: '' });
 
 //initialize openAI client
-const openai = new OpenAI({
-  apiKey:
-    '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',
-});
+const openai = new OpenAI({});
 
 const queryOpenAIChat = async (req, res, next) => {
   try {
@@ -116,7 +113,6 @@ const queryOpenAIChat = async (req, res, next) => {
     const script = response.choices[0].message.content;
     res.locals.generatedScript = script;
 
-
     // Log the paired query and response
     // const logEntry = {
     //   userQuery: userQuery,
@@ -124,7 +120,6 @@ const queryOpenAIChat = async (req, res, next) => {
     // };
     // await appendToLog(logEntry);
     // return next();
-
   } catch (err) {
     console.error('OpenAI Error:', err);
     return res.status(500).json({
