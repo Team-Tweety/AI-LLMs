@@ -43,10 +43,6 @@
   margin: 0 auto;
 }
 
-.text-input:hover {
-  transform: translateY(-2px);
-}
-
 .text-input input {
   width: 100%;
   padding: 15px 20px;

@@ -1,10 +1,17 @@
 import OpenAI from 'openai';
 import dotenv from 'dotenv';
 
+//new imports
+import fs from 'fs/promises';
+import path from 'path';
+
 dotenv.config({ path: '' });
 
 //initialize openAI client
-const openai = new OpenAI();
+const openai = new OpenAI({
+  apiKey:
+    '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',
+});
 
 const queryOpenAIChat = async (req, res, next) => {
   try {
@@ -77,7 +84,7 @@ const queryOpenAIChat = async (req, res, next) => {
       and/or age range. If no age group is specified, default to content and a vocabulary appropriate for 13-year-olds. 
       3. If the number of participants is not specified, default to three roles.
       4. Keep the script brief and impactful to maintain student engagement.
-      5. Avoid using bullet point, dividers, or excessive formatting outside the Markdown guidelines specified.
+      5. Avoid using dividers or excessive formatting outside the Markdown guidelines specified.
       6. Always format the entire output using Markdown formatting that's ready for rendering on a website or
       a frontend system.
 
@@ -87,7 +94,7 @@ const queryOpenAIChat = async (req, res, next) => {
     `;
 
     const response = await openai.chat.completions.create({
-      model: 'gpt-4o',
+      model: 'ft:gpt-4o-2024-08-06:personal:tweety-fine-tuning:AtHvrboY',
       messages: [
         {
           role: 'system',
@@ -114,12 +121,12 @@ const queryOpenAIChat = async (req, res, next) => {
     res.locals.generatedScript = script;
 
     // Log the paired query and response
-    // const logEntry = {
-    //   userQuery: userQuery,
-    //   response: script
-    // };
-    // await appendToLog(logEntry);
-    // return next();
+    const logEntry = {
+      userQuery: userQuery,
+      response: script,
+    };
+    await appendToLog(logEntry);
+    return next();
   } catch (err) {
     console.error('OpenAI Error:', err);
     return res.status(500).json({
@@ -128,5 +135,15 @@ const queryOpenAIChat = async (req, res, next) => {
     });
   }
 };
+
+async function appendToLog(data) {
+  const logPath = path.join(process.cwd(), 'server', 'db.jsonl');
+  try {
+    const logEntry = JSON.stringify(data) + '\n';
+    await fs.appendFile(logPath, logEntry, 'utf8');
+  } catch (error) {
+    console.error('Error writing to log:', error);
+  }
+}
 
 export default queryOpenAIChat;

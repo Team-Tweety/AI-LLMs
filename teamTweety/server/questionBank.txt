@@ -1,0 +1,44 @@
+//Highly Strucutred Version
+x4 eighth graders about mitochondrial structure and function
+x4 students aged 14 about solving systems of equations with substitution
+x5 tenth grade students about iambic pentameter in Sonnet 18
+x6 fifteen-year-olds about oxidation-reduction reactions
+xFor seventh grade students about the French Revolution causes
+x4 eleven-year-olds about Newton's Second Law
+x2 ninth grade students about JavaScript arrays
+x5 fourteen-year-olds about factoring quadratic expressions
+x4 fifth graders about metamorphic rocks
+x6 eleventh grade students about Buddhist philosophy
+x3 third grade students about creative writing using sensory details
+x5 seventeen-year-olds about wave-particle duality
+x eighth grade students about the human respiratory system
+x6 sixteen-year-olds about statistics sampling methods
+x3 ninth graders about Gothic architecture
+x5 tenth grade students about DNA replication
+x4 eleventh grade students about Supreme Court cases
+x2 ten-year-olds about decimal operations
+5 sixth grade students about tectonic plate boundaries
+4 tenth grade students about conservation of angular momentum
+
+
+//Diverse Question Version
+xCould you explain mitochondrial structure and function to 4 eighth graders?
+xHow would you teach 3 students aged 14 about solving systems of equations with substitution?
+xFor a class of 5 tenth grade students, what's the best way to explain iambic pentameter in Sonnet 18?
+xCould a lesson about oxidation-reduction reactions for 6 kids who are 15.
+xI need help teaching the French Revolution causes to 4 students in grade 7.
+xWhat's an engaging way to teach Newton's Second Law to 3 eleven-year-olds?
+xCan you help me create a lesson about JavaScript arrays for 2 grade 9 students?
+xShow me how to explain factoring quadratic expressions to 5 fourteen-year-olds?
+xWhat's the most effective way to teach metamorphic rocks to 4 fifth graders?
+xFor 6 students in grade 11, how should I approach teaching Buddhist philosophy?
+xHelp me design a creative writing lesson using sensory details for 3 third-grade students.
+xWhat's the clearest approach to teaching wave-particle duality to 5 seventeen-year-olds?
+xI'm planning a lesson about the human respiratory system for 4 grade 8 students - any suggestions?
+xCould you outline a statistics lesson on sampling methods for 6 students aged 16?
+xWhat strategies would work best to teach Gothic architecture to 3 ninth graders?
+xFor 5 students in grade 10, how should I explain DNA replication?
+xCreate a lesson plan about Supreme Court cases for 4 eleventh-grade students.
+xWhat's a good way to introduce decimal operations to 2 students aged 10?
+Help me plan a lesson about tectonic plate boundaries for 5 grade 6 students.
+For 4 students in grade 10, how would you teach conservation of angular momentum?
