@@ -9,8 +9,7 @@ dotenv.config({ path: '' });
 
 //initialize openAI client
 const openai = new OpenAI({
-  apiKey:
-    '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',
+  apiKey: PLACEHOLDER_KEY,
 });
 
 const queryOpenAIChat = async (req, res, next) => {
