@@ -4,7 +4,7 @@ import dotenv from 'dotenv';
 dotenv.config({ path: '' });
 
 //initialize openAI client
-const openai = new OpenAI({});
+const openai = new OpenAI();
 
 const queryOpenAIChat = async (req, res, next) => {
   try {
